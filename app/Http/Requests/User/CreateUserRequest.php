@@ -32,9 +32,9 @@ class CreateUserRequest extends FormRequest
             'phone_number' => 'nullable|regex:/(0)[0-9]{9}/',
             'dob' => 'nullable|before:today',
             'details' => 'nullable',
-            'gender' => 'required',
+            'gender' => 'nullable',
             'role_id' => 'required',
-            'status' => 'required',
+            'status' => 'nullable',
             'password' => 'required|confirmed|min:6',
         ];
     }

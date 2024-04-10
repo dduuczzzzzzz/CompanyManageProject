@@ -25,6 +25,8 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 use Illuminate\Support\Facades\DB;
 
+use function PHPUnit\Framework\isNull;
+
 class UserController extends BaseApiController
 {
     public function __construct(protected UserRepository $userRepository)
@@ -69,6 +71,14 @@ class UserController extends BaseApiController
     {
         // Get data valid from request
         $data = $request->validated();
+
+        if(isNull($data['status'])) {
+            $data['status'] = 0;
+        }
+
+        if(isNull($data['gender'])) {
+            $data['gender'] = 3;
+        }
 
         if ($request->hasFile('avatar')) {
             $avatarName = time().'.'.$request->avatar->extension();
