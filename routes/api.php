@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\TeamController;
 use App\Http\Controllers\Api\AttendanceController;
+use App\Http\Controllers\Api\UserSessionDetailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -90,6 +91,10 @@ Route::middleware(['auth:sanctum', 'acl'])->group(function () {
         Route::post('/importAttendance', [AttendanceController::class, 'importAttendance'])->name('importAttendance');
         Route::get('/get-importAttendance', [AttendanceController::class, 'statisticalFileImport'])->name('statisticalFileImport');
         Route::get('/export-templateImportAttendance', [AttendanceController::class, 'exportTemplate'])->name('exportTemplate');
+    });
+
+    Route::prefix('session')->name('session')->group(function() {
+        Route::post('/upsert', [UserSessionDetailController::class, 'upsert'])->name('upsert')->withoutMiddleware(['acl']);
     });
 });
 
