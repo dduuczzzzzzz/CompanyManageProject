@@ -11,7 +11,7 @@ class UserSession extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-   protected $table = 'user_session';
+    protected $table = 'user_session';
 
     protected $fillable = [
         'user_id',
@@ -21,7 +21,7 @@ class UserSession extends Model
         'leave_soon_count',
     ];
 
-    protected array $sortable = ['*'];
+    public array $sortable = ['user_id'];
 
     public function user()
     {

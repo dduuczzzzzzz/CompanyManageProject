@@ -22,7 +22,7 @@ class UserSessionDetail extends Model
         'get_check_out'
     ];
 
-    protected array $sortable = ['*'];
+    public array $sortable = ['user_id'];
 
     public function user()
     {
