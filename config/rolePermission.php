@@ -10,6 +10,7 @@ return [
     'role_remove' => [
         "role.get_list",
         "role.change_permission",
+        "session.upsert",
         "login",
         "logout",
     ],

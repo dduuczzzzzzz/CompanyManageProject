@@ -62,7 +62,6 @@ class RoleController extends BaseApiController
     {
         $data = $request->validated();
         $data['updated_by_id'] = auth()->user()->id;
-        if ($id== CommonConst::ADMIN_ID ) return $this->sendError( __('common.update_admin'));
         $role_permissions = $request->input('role');
         $data['role_permissions'] = $role_permissions;
         $role = $this->roleRepository->update($id, $data);
