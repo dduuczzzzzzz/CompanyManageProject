@@ -93,7 +93,7 @@ class RoleController extends BaseApiController
                 }
             DB::rollBack();
             return $this->sendError(__('common.deleted'), null, Response::HTTP_NOT_FOUND);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return $this->sendExceptionError($e, Response::HTTP_NOT_FOUND);
         }

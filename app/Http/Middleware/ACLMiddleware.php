@@ -24,7 +24,7 @@ class ACLMiddleware
         $userRolePermissions = auth()->user()->role->role_permissions;
         $currentRouteName = $request->route()->getName();
         if (!in_array($currentRouteName, $userRolePermissions)) {
-            return $this->sendError("Bạn không có quyền truy cập trang này", Response::HTTP_FORBIDDEN, 403);
+            return $this->sendError("Permission deny!", Response::HTTP_FORBIDDEN, 403);
         }
         return $next($request);
     }
