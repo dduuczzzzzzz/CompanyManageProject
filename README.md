@@ -1,7 +1,7 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 
-# Api for Mume-attendance/intern2023
+# Api for COmpany Management Project - Graduate Thesis
 
 ## Prerequisites
 
@@ -51,7 +51,7 @@ php artisan db:seed --class=FakeDataSeeder
 
 #
 
-### 5. Running queue local for import csv file or sending mail
+### 5. Running queue local for sending mail and other tasks
 
 ```bash
 php artisan queue:work
