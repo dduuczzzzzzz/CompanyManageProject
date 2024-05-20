@@ -352,4 +352,40 @@ class UserController extends BaseApiController
             return $this->sendExceptionError($e);
         }
     }
+
+    /**
+     * Register user face
+     *
+     * @param  Request  $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function registerFace(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $user = auth()->user();
+        $update = $this->userRepository->update($user->id, [
+            'face_register' => 1
+        ]);
+
+        if ($update) {
+            return $this->sendResponse(null, "Register user face successfully");
+        }
+
+        return $this->sendError("Some error happen!", Response::HTTP_NOT_FOUND, 404);
+    }
+
+    /**
+     * get user face register status
+     *
+     * @param  Request  $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getUserFaceRegisterStatus(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $user = auth()->user();
+        $faceRegisterStatus = $user->face_register;
+        return $this->sendResponse($faceRegisterStatus);
+    }
+
 }

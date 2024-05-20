@@ -4,7 +4,6 @@ namespace App\Exports;
 
 use App\Http\Resources\UserSession\UserSessionResource;
 use App\Models\User;
-use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -14,13 +13,11 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExportUserSession implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize, WithStyles
 {
-    use Exportable;
+    private $collection;
 
-    protected $userSession;
-
-    public function __construct($userSession)
+    public function __construct($collection)
     {
-        $this->userSession = $userSession;
+        $this->collection = $collection;
     }
 
     /**
@@ -28,7 +25,7 @@ class ExportUserSession implements FromCollection, WithHeadings, WithMapping, Sh
     */
     public function collection()
     {
-        return UserSessionResource::collection($this->userSession);
+        return $this->collection;
     }
 
     /**
@@ -48,6 +45,14 @@ class ExportUserSession implements FromCollection, WithHeadings, WithMapping, Sh
 
     public function styles(Worksheet $sheet)
     {
+        $sheet->getStyle('A1:F1')->applyFromArray([
+            'fill' => [
+                'fillType' => 'solid',
+                'startColor' => [
+                    'rgb' => 'FFA500', // Màu cam
+                ],
+            ],
+        ]);
         $lastRow = $sheet->getHighestRow();
         for ($row = 2; $row <= $lastRow; $row++) {
             $sheet->getStyle("A{$row}:Z{$row}")->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
@@ -74,7 +79,7 @@ class ExportUserSession implements FromCollection, WithHeadings, WithMapping, Sh
             // $row['year'],
             // $row['late_count'],
             // $row['leave_soon_count'],
-            $userSession->user_name,
+            $userSession->user->name,
             $userSession->user_id,
             $userSession->month,
             $userSession->year,

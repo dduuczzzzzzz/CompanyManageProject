@@ -32,6 +32,17 @@ class RoleController extends BaseApiController
     }
 
     /*
+     * Get list roles
+     */
+    public function getList(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $condition = $request->all();
+        $roles = $this->roleRepository->getByCondition($condition);
+        $result = RoleResource::collection($roles);
+        return $this->sendResponse($result);
+    }
+
+    /*
      * create new role
      * */
     public function create(CreateRoleRequest $request): \Illuminate\Http\JsonResponse

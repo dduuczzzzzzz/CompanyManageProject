@@ -13,5 +13,10 @@ return [
         "session.upsert",
         "login",
         "logout",
+        "user.register_face",
+        "user.register_face_status",
+        "user.getall",
+        "role.listRole",
+        "model.upsert"
     ],
 ];

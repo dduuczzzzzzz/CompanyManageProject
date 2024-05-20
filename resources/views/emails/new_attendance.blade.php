@@ -1,14 +1,14 @@
 <x-mail::message>
-# There is a new attendance!
+# Thông báo có đơn xin nghỉ mới!
 
-From email: {{$email}} <br>
+Từ người gửi: {{$email}} <br>
 
-Attendance type: {{$type_name}} <br>
+Loại đơn xin nghỉ: {{$type_name}} <br>
 
-Time: {{$start_date}} to {{$end_date}}, from {{$start_time}} to {{$end_time}} <br>
+Thời gian: Từ ngày {{$start_date}} đến {{$end_date}},{{$start_time}} giờ đến {{$end_time}} giờ<br>
 
-Reason: {{$reason}} <br>
+Lý do xin nghỉ: {{$reason}} <br>
 
-Thanks,<br>
+Cảm ơn,<br>
 {{ $name }}
 </x-mail::message>

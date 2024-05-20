@@ -58,11 +58,11 @@ class UserSessionDetailController extends BaseApiController
                 'date' => $now
             ])->first();
 
-            if($userSessionDetail && $userSessionDetail->get_check_in && $data['get_check_in']) {
+            if($userSessionDetail && $userSessionDetail->get_check_in && isset($data['get_check_in']) && $data['get_check_in']) {
                 return $this->sendError("You have checked in!", 422, Response::HTTP_UNPROCESSABLE_ENTITY);
             }
 
-            if($userSessionDetail && $userSessionDetail->get_check_out && $data['get_check_out']) {
+            if($userSessionDetail && $userSessionDetail->get_check_out && isset($data['get_check_out']) && $data['get_check_out']) {
                 return $this->sendError("You have checked out!", 422, Response::HTTP_UNPROCESSABLE_ENTITY);
             }
             $data = array_merge($data, [

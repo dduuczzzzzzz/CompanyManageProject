@@ -34,6 +34,7 @@ class EventResource extends JsonResource
             'link' => $this->link,
             'created_at' => date("d-m-Y, H:i:s", $this->created_at->timestamp),
             'created_by' => ProfileResource::make($this->created_by),
+            'type_id' => $this->type_id,
         ];
     }
 }

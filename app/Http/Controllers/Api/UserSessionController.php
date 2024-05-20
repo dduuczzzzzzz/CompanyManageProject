@@ -11,6 +11,7 @@ use App\Repositories\UserSessionRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserSessionController extends BaseApiController
 {
@@ -59,6 +60,7 @@ class UserSessionController extends BaseApiController
         $userSession = $this->userSessionRepository->getByCondition($condition);
         $result = UserSessionResource::collection($userSession);
         $export = new ExportUserSession($result);
-        return $export->download('userSession.xlsx');
+        $fileName = date("Y-m-d") . '-' . time() . '-sesion.xlsx';
+        return Excel::download(new ExportUserSession($result), $fileName, \Maatwebsite\Excel\Excel::XLSX);
     }
 }

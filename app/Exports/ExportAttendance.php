@@ -62,7 +62,7 @@ class ExportAttendance implements FromCollection, WithMapping, WithStrictNullCom
             $attendanceResource->end_time,
             $attendanceResource->reason,
             $statusString,
-            $attendanceResource->approver,
+            $attendanceResource->approver?->name,
             $attendanceResource->approved_at,
             $attendanceResource->result,
             $attendanceResource->managers,
@@ -79,6 +79,17 @@ class ExportAttendance implements FromCollection, WithMapping, WithStrictNullCom
                 ],
             ],
         ]);
+        $lastRow = $sheet->getHighestRow();
+        for ($row = 2; $row <= $lastRow; $row++) {
+            $sheet->getStyle("A{$row}:Z{$row}")->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        }
+        return [
+            // Style the first row as bold text.
+            1    => [
+                'font' => ['bold' => true],
+                'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER]
+            ],
+        ];
     }
 
 }

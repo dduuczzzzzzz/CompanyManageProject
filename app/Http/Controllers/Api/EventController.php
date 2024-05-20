@@ -85,7 +85,7 @@ class EventController extends BaseApiController
             unset($data['type']);
         }
         $event = $this->eventRepository->create($data);
-        if ($request->sendMail =="true") {
+        if ($request->sendMail =="true" || $request->sendMail =="1") {
             $users = User::all();
             $data1 = [
                 'event' => $event,
@@ -123,6 +123,7 @@ class EventController extends BaseApiController
     public function update(UpdateEventRequest $request, $id): \Illuminate\Http\JsonResponse
     {
         $data = $request->validated();
+        $data["type_id"] = $data["type"];
         $paths = $this->eventRepository->findOrFail($id)->image ?? [];
         $delete = $request->input('delete') ?? [];
 

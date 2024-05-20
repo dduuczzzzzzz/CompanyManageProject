@@ -16,8 +16,8 @@ class EventRepository extends BaseRepository
     {
         return match ($column) {
             'name', 'location' => $query->where($column, 'like', "%${data}%"),
-            'type' => $query->where($column, $data),
-            'date' => $query->where('start_time', '<=', $data)->where('end_time', '>=', $data),
+            'type_id' => $query->where($column, $data),
+            'date' => $query->whereDate('start_time', '<=', $data)->whereDate('end_time', '>=', $data),
             default => $query,
         };
     }
