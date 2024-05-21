@@ -17,6 +17,9 @@ return [
         "user.register_face_status",
         "user.getall",
         "role.listRole",
-        "model.upsert"
+        "model.upsert",
+        "model.getModel",
+        "model.getWeights",
+        "event.getType"
     ],
 ];

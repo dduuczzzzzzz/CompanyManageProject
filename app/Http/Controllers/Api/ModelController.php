@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Helpers\FileHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ModelController extends BaseApiController
 {
@@ -21,5 +22,13 @@ class ModelController extends BaseApiController
             FileHelper::saveFileToStorage('model', $request->model_weights_bin, 'model.weights.bin');
         }
         return $this->sendResponse('');
+    }
+
+    public function getModel(Request $request) {
+        return response()->file('storage/model/model.json');
+    }
+
+    public function getModelWeight(Request $request) {
+        return response()->file('storage/model/model.weights.bin');
     }
 }

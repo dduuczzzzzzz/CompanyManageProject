@@ -43,7 +43,7 @@ Route::middleware(['auth:sanctum', 'acl'])->group(function () {
     });
     Route::prefix('/event')->name('event.')->group(function () {
         Route::get('/', [EventController::class, 'index'])->name('list');
-        Route::get('/type', [EventController::class, 'typeEvent'])->name('getType');
+        Route::get('/type', [EventController::class, 'typeEvent'])->name('getType')->withoutMiddleware(['acl']);
         Route::post('/store', [EventController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [EventController::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [EventController::class, 'update'])->name('update');
@@ -97,6 +97,8 @@ Route::middleware(['auth:sanctum', 'acl'])->group(function () {
 
     Route::prefix('model')->name('model.')->group(function() {
         Route::post('/upsert', [ModelController::class, 'upLoadModel'])->name('upsert')->withoutMiddleware(['acl','auth:sanctum']);
+        Route::get('/file', [ModelController::class, 'getModel'])->name('getModel')->withoutMiddleware(['acl','auth:sanctum']);
+        Route::get('/model.weights.bin', [ModelController::class, 'getModelWeight'])->name('getWeights')->withoutMiddleware(['acl','auth:sanctum']);
     });
 });
 
