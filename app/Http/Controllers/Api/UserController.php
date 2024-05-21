@@ -25,6 +25,8 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 use Illuminate\Support\Facades\DB;
 
+use function PHPUnit\Framework\isNull;
+
 class UserController extends BaseApiController
 {
     public function __construct(protected UserRepository $userRepository)
@@ -69,6 +71,14 @@ class UserController extends BaseApiController
     {
         // Get data valid from request
         $data = $request->validated();
+
+        if(isNull($data['status'])) {
+            $data['status'] = 0;
+        }
+
+        if(isNull($data['gender'])) {
+            $data['gender'] = 3;
+        }
 
         if ($request->hasFile('avatar')) {
             $avatarName = time().'.'.$request->avatar->extension();
@@ -342,4 +352,40 @@ class UserController extends BaseApiController
             return $this->sendExceptionError($e);
         }
     }
+
+    /**
+     * Register user face
+     *
+     * @param  Request  $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function registerFace(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $user = auth()->user();
+        $update = $this->userRepository->update($user->id, [
+            'face_register' => 1
+        ]);
+
+        if ($update) {
+            return $this->sendResponse(null, "Register user face successfully");
+        }
+
+        return $this->sendError("Some error happen!", Response::HTTP_NOT_FOUND, 404);
+    }
+
+    /**
+     * get user face register status
+     *
+     * @param  Request  $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getUserFaceRegisterStatus(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $user = auth()->user();
+        $faceRegisterStatus = $user->face_register;
+        return $this->sendResponse($faceRegisterStatus);
+    }
+
 }

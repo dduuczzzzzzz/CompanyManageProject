@@ -107,6 +107,7 @@ class User extends Authenticatable
         'gender',
         'role_id',
         'status',
+        'face_register',
         'created_by_id',
         'updated_by_id',
         'deleted_by_id'

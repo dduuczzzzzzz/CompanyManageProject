@@ -16,4 +16,12 @@ class FileHelper
         return Storage::putFileAs($folder, $file, $path);
     }
 
+    public static function clearDir($folder): bool
+    {
+        $files =   Storage::allFiles($folder);
+        if($files) return Storage::disk('public')->delete($files);
+        return false;
+    }
+
+
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\UserSessionDetail;
 
 use App\Traits\ApiFailedValidation;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class CreateUserSessionDetailRequest extends FormRequest
 {
     use ApiFailedValidation;
 
@@ -25,8 +25,9 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|string',
-            'password' => 'required|string'
+            'date' => 'required',
+            'get_check_in' => 'nullable|boolean',
+            'get_check_out' => 'nullable|boolean'
         ];
     }
 }

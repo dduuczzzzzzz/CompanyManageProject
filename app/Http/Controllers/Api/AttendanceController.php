@@ -293,7 +293,7 @@ class AttendanceController extends BaseApiController
             $condition['manager'] = $user->id;
             $attendance = $this->attendanceRepository->getAttendanceByCondition($condition);
         } else {
-            $condition['created_by_id'] = $user->id;
+            // $condition['created_by_id'] = $user->id;
             $attendance = $this->attendanceRepository->getAttendanceByCondition($condition);
         }
         $result = AttendanceResource::collection($attendance);

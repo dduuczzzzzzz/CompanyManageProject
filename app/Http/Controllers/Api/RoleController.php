@@ -32,6 +32,17 @@ class RoleController extends BaseApiController
     }
 
     /*
+     * Get list roles
+     */
+    public function getList(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $condition = $request->all();
+        $roles = $this->roleRepository->getByCondition($condition);
+        $result = RoleResource::collection($roles);
+        return $this->sendResponse($result);
+    }
+
+    /*
      * create new role
      * */
     public function create(CreateRoleRequest $request): \Illuminate\Http\JsonResponse
@@ -62,7 +73,6 @@ class RoleController extends BaseApiController
     {
         $data = $request->validated();
         $data['updated_by_id'] = auth()->user()->id;
-        if ($id== CommonConst::ADMIN_ID ) return $this->sendError( __('common.update_admin'));
         $role_permissions = $request->input('role');
         $data['role_permissions'] = $role_permissions;
         $role = $this->roleRepository->update($id, $data);
@@ -94,7 +104,7 @@ class RoleController extends BaseApiController
                 }
             DB::rollBack();
             return $this->sendError(__('common.deleted'), null, Response::HTTP_NOT_FOUND);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return $this->sendExceptionError($e, Response::HTTP_NOT_FOUND);
         }

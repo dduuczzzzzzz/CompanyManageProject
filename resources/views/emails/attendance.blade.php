@@ -1,14 +1,14 @@
 <x-mail::message>
-# Attendance reviewed
+# Đơn xin nghỉ đã được phê duyệt
 
 @if($status == 1)
-Your attendance has been approved!
+Đơn xin nghỉ của bạn đã được chấp nhận!
 @else
-Your attendance has been rejected!
+Đơn xin nghỉ của bạn đã bị từ chối!
 @endif
 <br>
-Message: {{$result}} 
+Lời nhắn: {{$result}} 
 
-Regard,<br>
+Trân trọng,<br>
 {{ $name }}
 </x-mail::message>
