@@ -58,7 +58,7 @@ class AttendanceReviewed extends Mailable
             ->view('emails.attendance')
             ->with([
                 'name' => $this->data['name'],
-                'result' => $this->data['result'],
+                'result' => isset($this?->data['result']) ? $this?->data['result'] : "",
                 'status' => $this->data['status'],
             ])
             ->markdown('emails.attendance');
